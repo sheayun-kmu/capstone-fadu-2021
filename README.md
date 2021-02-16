@@ -1,7 +1,7 @@
 # capstone-fadu-2021 
 Capstone Design 2021 (Fadu) 
 
-Kookmin University's 2021 Capstone Design Industry-cademic Cooperation Designation Project with FADU. 
+Kookmin University's 2021 Capstone Design Industry-Academic Cooperation Designation Project with FADU. 
 
 # Introduction 
 
