@@ -10,3 +10,6 @@ This is Jenkins plugin for reporting code coverage status. This plugin provides 
 # Documentation
 
 See the [official documentation on jenkins.io](https://jenkins.io/doc/book/pipeline/).
+
+# License
+
