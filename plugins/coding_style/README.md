@@ -1,4 +1,4 @@
-# ** Coding styling check Status Reporter **
+#  Coding styling check Status Reporter 
 ---
 
 ### Coding style check:
