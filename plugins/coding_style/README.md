@@ -2,9 +2,7 @@
 ---
 
 ### Coding style check:
-    코드에 통일성을 주어 가시성을 높이고 다른 스타일로 발생할 수 있는 에러를 방지하는 것을 목표로 한다.
+    코드 구조의 일관성을 유지하여 가독성을 높이고 협업 및 유지보수의 효율을 향상시키는 목표를 가진다.
 
 plugin reference:
 <https://www.jenkins.io/doc/developer/>
-
-
