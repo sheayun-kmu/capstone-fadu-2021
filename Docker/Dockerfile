@@ -1,7 +1,11 @@
 FROM ubuntu:18.04
 
-RUN apt-get update \
-  && apt-get upgrade -y
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends git curl gnupg fontconfig unzip nano
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+RUN apt-get install -y git-lfs
+RUN git lfs install
+#  && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get install sudo
 RUN apt-get install -y git curl
@@ -37,16 +41,13 @@ ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-w
 
 # could use ADD but this one does not check Last-Modified header neither does it allow to control checksum
 # see https://github.com/docker/docker/issues/8331
-RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war \
-  && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
+RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war
+RUN echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha256sum -c -
+
 COPY jenkins.sh /usr/local/bin/jenkins.sh
+RUN chmod +x /usr/local/bin/jenkins.sh
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends git curl gnupg fontconfig unzip nano \
-  && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && apt-get install -y git-lfs && git lfs install \
-  && rm -rf /var/lib/apt/lists/*
-
-ADD entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 8080
