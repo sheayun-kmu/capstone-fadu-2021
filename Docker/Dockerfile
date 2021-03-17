@@ -1,13 +1,42 @@
 FROM adoptopenjdk:8u282-b08-jdk-openj9-0.24.0-focal
 
-RUN apt-get update \
-  && apt-get upgrade -y \
-  && apt-get install -y --no-install-recommends git curl gnupg fontconfig unzip vim sudo \
+RUN apt-get update
+RUN apt-get upgrade -y
+
+########## cmocka ##########
+RUN apt-get install -y libcmocka-dev
+
+########## ikos Dockerfile ##########
+MAINTAINER Maxime Arthaud <maxime.arthaud@nasa.gov>
+ARG njobs=2
+ARG build_type=Release
+
+
+# Install all dependencies
+RUN apt-get install -y gnupg gnupg2
+RUN apt-get install -y gcc g++ cmake libgmp-dev libboost-dev
+RUN apt-get install -y libboost-filesystem-dev libboost-thread-dev libboost-test-dev python
+RUN apt-get install -y python-pygments libsqlite3-dev libtbb-dev libz-dev libedit-dev
+RUN apt-get install -y llvm-9 llvm-9-dev llvm-9-tools clang-9 wget
+
+# Add ppa for llvm 9.0
+RUN echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main" >> /etc/apt/sources.list
+
+# Add llvm repository key
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+
+# Refresh cache
+RUN apt-get update
+
+########## Jenkins Dockerfile ##########
+
+RUN apt-get upgrade -y \
+  && apt-get install -y --no-install-recommends git curl fontconfig unzip vim sudo clang-format-10\
   && apt install -y maven \
   && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && apt-get install -y git-lfs && git lfs install \
-  && rm -rf /var/lib/apt/lists/*
+#  && rm -rf /var/lib/apt/lists/*
 
-#RG user=jenkins
+#ARG user=jenkins
 #ARG group=jenkins
 #ARG uid=1000
 #ARG gid=1000
@@ -84,10 +113,10 @@ COPY jenkins-support /usr/local/bin/jenkins-support
 COPY jenkins.sh /usr/local/bin/jenkins.sh
 COPY tini-shim.sh /bin/tini
 COPY jenkins-plugin-cli.sh /bin/jenkins-plugin-cli
-COPY entrypoint.sh /entrypoint.sh
+#COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /usr/local/bin/jenkins.sh
-RUN chmod +x /entrypoint.sh
+#RUN chmod +x /entrypoint.sh
 
 # set variables to create shared class cache
 ENV JAVA_SCC_OPTS "-Xshareclasses:name=jenkins_scc,cacheDir=/tmp,enableBCI -Xscmx80M"
@@ -102,7 +131,6 @@ ENV JAVA_SCC_OPTS "-Xshareclasses:name=jenkins_scc,cacheDir=/tmp,readonly"
 ENV JAVA_OPTS "${JAVA_SCC_OPTS} ${JAVA_OLD_OPTS}"
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
-CMD ["source", "./entryponint.sh"]
 
 # from a derived Dockerfile, can use `RUN install-plugins.sh active.txt` to setup ${REF}/plugins from a support bundle
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
