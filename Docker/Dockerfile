@@ -33,7 +33,7 @@ RUN apt-get update
 RUN apt-get upgrade -y \
   && apt-get install -y --no-install-recommends git curl fontconfig unzip vim sudo clang-format-10\
   && apt install -y maven \
-  && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && apt-get install -y git-lfs && git lfs install \
+  && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && apt-get install -y git-lfs && git lfs install
 #  && rm -rf /var/lib/apt/lists/*
 
 #ARG user=jenkins
