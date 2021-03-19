@@ -33,7 +33,7 @@ RUN apt-get update
 RUN apt-get upgrade -y \
   && apt-get install -y --no-install-recommends git curl fontconfig unzip vim sudo clang-format-10\
   && apt install -y maven \
-  && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && apt-get install -y git-lfs && git lfs install \
+  && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && apt-get install -y git-lfs && git lfs install
 #  && rm -rf /var/lib/apt/lists/*
 
 #ARG user=jenkins
@@ -52,7 +52,7 @@ ENV REF $REF
 # Jenkins is run with user `jenkins`, uid = 1000
 # If you bind mount a volume from the host or a data container,
 # ensure you use the same uid
-RUN mkdir -p $JENKINS_HOME
+WORKDIR $JENKINS_HOME
 #  && chown ${uid}:${gid} $JENKINS_HOME \
 #  && groupadd -g ${gid} ${group} \
 #  && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
@@ -64,7 +64,7 @@ VOLUME $JENKINS_HOME
 # $REF (defaults to `/usr/share/jenkins/ref/`) contains all reference configuration we want
 # to set on a fresh new installation. Use it to bundle additional plugins
 # or config file with your custom jenkins Docker image.
-RUN mkdir -p ${REF}/init.groovy.d
+WORKDIR ${REF}/init.groovy.d
 
 # Use tini as subreaper in Docker container to adopt zombie processes
 ARG TINI_VERSION=v0.16.1
@@ -129,6 +129,8 @@ RUN /sbin/tini -- /usr/local/bin/jenkins.sh > /dev/null & sleep 20
 # revert JAVA_OPTS to not have shared class cache
 ENV JAVA_SCC_OPTS "-Xshareclasses:name=jenkins_scc,cacheDir=/tmp,readonly"
 ENV JAVA_OPTS "${JAVA_SCC_OPTS} ${JAVA_OLD_OPTS}"
+
+WORKDIR /home/work
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
