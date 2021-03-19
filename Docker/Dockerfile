@@ -130,6 +130,8 @@ RUN /sbin/tini -- /usr/local/bin/jenkins.sh > /dev/null & sleep 20
 ENV JAVA_SCC_OPTS "-Xshareclasses:name=jenkins_scc,cacheDir=/tmp,readonly"
 ENV JAVA_OPTS "${JAVA_SCC_OPTS} ${JAVA_OLD_OPTS}"
 
+WORKDIR /home/work
+
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 # from a derived Dockerfile, can use `RUN install-plugins.sh active.txt` to setup ${REF}/plugins from a support bundle
