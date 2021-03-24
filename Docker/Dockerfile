@@ -19,6 +19,10 @@ RUN apt-get install -y libboost-filesystem-dev libboost-thread-dev libboost-test
 RUN apt-get install -y python-pygments libsqlite3-dev libtbb-dev libz-dev libedit-dev
 RUN apt-get install -y llvm-9 llvm-9-dev llvm-9-tools clang-9 wget
 
+# add by Hanbin
+RUN apt-get install -y lcov && apt-get install -y gcovr
+RUN apt-get install -y nano
+
 # Add ppa for llvm 9.0
 RUN echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main" >> /etc/apt/sources.list
 
