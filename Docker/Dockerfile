@@ -1,6 +1,6 @@
 FROM adoptopenjdk:8u282-b08-jdk-openj9-0.24.0-focal
 
-RUN apt-get update
+RUN apt-get update -y
 RUN apt-get upgrade -y
 
 ########## cmocka ##########
@@ -18,6 +18,7 @@ RUN apt-get install -y gcc g++ cmake libgmp-dev libboost-dev
 RUN apt-get install -y libboost-filesystem-dev libboost-thread-dev libboost-test-dev python
 RUN apt-get install -y python-pygments libsqlite3-dev libtbb-dev libz-dev libedit-dev
 RUN apt-get install -y llvm-9 llvm-9-dev llvm-9-tools clang-9 wget
+RUN apt-get install -y gcovr nano iptables net-tools
 
 # Add ppa for llvm 9.0
 RUN echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main" >> /etc/apt/sources.list
@@ -26,7 +27,7 @@ RUN echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main" >> /etc/
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
 
 # Refresh cache
-RUN apt-get update
+RUN apt-get update  -y
 
 ########## Jenkins Dockerfile ##########
 
@@ -41,6 +42,7 @@ RUN apt-get upgrade -y \
 #ARG uid=1000
 #ARG gid=1000
 ARG http_port=8080
+ARG http_port_2=8081
 ARG agent_port=50000
 ARG JENKINS_HOME=/var/jenkins_home
 ARG REF=/usr/share/jenkins/ref
@@ -75,13 +77,13 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}
   && gpg --verify /sbin/tini.asc \
   && rm -rf /sbin/tini.asc /root/.gnupg \
   && chmod +x /sbin/tini
-
+  
 # jenkins version being bundled in this docker image
 ARG JENKINS_VERSION
-ENV JENKINS_VERSION ${JENKINS_VERSION:-2.235.4}
+ENV JENKINS_VERSION ${JENKINS_VERSION:-2.285}
 
 # jenkins.war checksum, download will be validated using it
-ARG JENKINS_SHA=e5688a8f07cc3d79ba3afa3cab367d083dd90daab77cebd461ba8e83a1e3c177
+ARG JENKINS_SHA=667765e2b4d1f69a238a3da59d0ae9eb4968d041a62d61da5a45cd39ab123eab
 
 # Can be used to customize where jenkins.war get downloaded from
 ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
@@ -101,6 +103,7 @@ RUN curl -fsSL ${PLUGIN_CLI_URL} -o /usr/lib/jenkins-plugin-manager.jar
 
 # for main web interface:
 EXPOSE ${http_port}
+EXPOSE ${http_port_2}
 
 # will be used by attached slave agents:
 EXPOSE ${agent_port}
