@@ -9,3 +9,4 @@ This plugin provides a test coverage for new added lines of code. If you create 
 See the [official documentation on jenkins.io](https://jenkins.io/doc/book/pipeline/).
 
 # License
+
