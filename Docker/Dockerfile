@@ -1,6 +1,6 @@
 FROM adoptopenjdk:8u282-b08-jdk-openj9-0.24.0-focal
 
-RUN apt-get update
+RUN apt-get update -y
 RUN apt-get upgrade -y
 
 ########## cmocka ##########
@@ -27,7 +27,7 @@ RUN echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main" >> /etc/
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
 
 # Refresh cache
-RUN apt-get update
+RUN apt-get update -y
 
 ########## Jenkins Dockerfile ##########
 
@@ -80,10 +80,10 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}
   
 # jenkins version being bundled in this docker image
 ARG JENKINS_VERSION
-ENV JENKINS_VERSION ${JENKINS_VERSION:-2.277.1}
+ENV JENKINS_VERSION ${JENKINS_VERSION:-2.285}
 
 # jenkins.war checksum, download will be validated using it
-ARG JENKINS_SHA=e5688a8f07cc3d79ba3afa3cab367d083dd90daab77cebd461ba8e83a1e3c177
+ARG JENKINS_SHA=667765e2b4d1f69a238a3da59d0ae9eb4968d041a62d61da5a45cd39ab123eab
 
 # Can be used to customize where jenkins.war get downloaded from
 ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
