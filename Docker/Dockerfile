@@ -20,8 +20,9 @@ RUN apt-get install -y python-pygments libsqlite3-dev libtbb-dev libz-dev libedi
 RUN apt-get install -y llvm-9 llvm-9-dev llvm-9-tools clang-9 wget
 
 # add by Hanbin
-RUN apt-get install -y lcov && apt-get install -y gcovr
-RUN apt-get install -y nano
+
+# RUN apt-get install -y lcov && apt-get install -y gcovr
+# RUN apt-get install -y nano
 
 # Add ppa for llvm 9.0
 RUN echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main" >> /etc/apt/sources.list
@@ -82,7 +83,7 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/${TINI_VERSION}
 
 # jenkins version being bundled in this docker image
 ARG JENKINS_VERSION
-ENV JENKINS_VERSION ${JENKINS_VERSION:-2.235.4}
+ENV JENKINS_VERSION ${JENKINS_VERSION:-2.277.1}
 
 # jenkins.war checksum, download will be validated using it
 ARG JENKINS_SHA=e5688a8f07cc3d79ba3afa3cab367d083dd90daab77cebd461ba8e83a1e3c177
@@ -140,3 +141,4 @@ ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
 # from a derived Dockerfile, can use `RUN install-plugins.sh active.txt` to setup ${REF}/plugins from a support bundle
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
+

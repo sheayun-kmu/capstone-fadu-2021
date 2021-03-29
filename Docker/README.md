@@ -1,3 +1,8 @@
+## Build
+~~~
+docker build -t Docker_Jenkins
+~~~
+
 
 ## Usage
 ~~~
