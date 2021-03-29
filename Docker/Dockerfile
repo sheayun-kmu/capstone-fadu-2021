@@ -46,6 +46,7 @@ RUN apt-get upgrade -y \
 #ARG uid=1000
 #ARG gid=1000
 ARG http_port=8080
+ARG another_port=8081
 ARG agent_port=50000
 ARG JENKINS_HOME=/var/jenkins_home
 ARG REF=/usr/share/jenkins/ref
@@ -106,6 +107,7 @@ RUN curl -fsSL ${PLUGIN_CLI_URL} -o /usr/lib/jenkins-plugin-manager.jar
 
 # for main web interface:
 EXPOSE ${http_port}
+EXPOSE ${another_port}
 
 # will be used by attached slave agents:
 EXPOSE ${agent_port}
