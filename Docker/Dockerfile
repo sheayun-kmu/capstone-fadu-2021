@@ -17,7 +17,38 @@ RUN apt-get install -y git curl fontconfig unzip vim sudo clang-format-10
 
 ########## ikos ##########
 # TODO: ikos 환경 설치하기
+MAINTAINER Maxime Arthaud <maxime.arthaud@nasa.gov>
+ARG njobs=2
+ARG build_type=Release
 
+# Add ppa for llvm 9.0
+RUN echo "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main" >> /etc/apt/sources.list
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+
+# Refresh cache
+RUN apt-get update
+
+# Add ikos source code
+RUN git clone https://github.com/NASA-SW-VnV/ikos.git ./ikos
+
+# Build ikos
+RUN rm -rf /ikos/build && mkdir /ikos/build
+
+WORKDIR /ikos/build
+ENV MAKEFLAGS "-j$njobs"
+RUN cmake \
+        -DCMAKE_INSTALL_PREFIX="/ikos" \
+        -DCMAKE_BUILD_TYPE="$build_type" \
+        -DLLVM_CONFIG_EXECUTABLE="/usr/lib/llvm-9/bin/llvm-config" \
+        ..
+RUN make
+RUN make install
+
+# Run the tests
+RUN make check
+
+# Add ikos to the path
+ENV PATH "/ikos/bin:$PATH"
 
 ########## Jenkins Dockerfile ##########
 
