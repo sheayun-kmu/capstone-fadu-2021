@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+# select the kakao apt mirror
+RUN sed -i 's@archive.ubuntu.com@mirror.kakao.com@g' /etc/apt/sources.list
 # Install all dependencies
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
@@ -9,13 +11,11 @@ RUN apt-get update && apt-get upgrade -y && \
         libboost-filesystem-dev libboost-thread-dev libboost-test-dev python \
         python-pygments libsqlite3-dev libtbb-dev libz-dev libedit-dev \
         llvm-9 llvm-9-dev llvm-9-tools clang-9 wget \
-        gcovr nano iptables net-tools \ 
-        git curl fontconfig unzip vim sudo clang-format-10
+        gcovr nano git curl fontconfig unzip vim sudo clang-format-10 
 
 ########## ikos ##########
 # TODO: ikos 환경 설치하기
 MAINTAINER Maxime Arthaud <maxime.arthaud@nasa.gov>
-ARG njobs=2
 ARG build_type=Release
 
 # Add ppa for llvm 9.0
@@ -29,29 +29,25 @@ RUN git clone https://github.com/NASA-SW-VnV/ikos.git ./ikos
 RUN rm -rf /ikos/build && mkdir /ikos/build
 
 WORKDIR /ikos/build
-ENV MAKEFLAGS "-j$njobs"
 RUN cmake \
         -DCMAKE_INSTALL_PREFIX="/ikos" \
         -DCMAKE_BUILD_TYPE="$build_type" \
         -DLLVM_CONFIG_EXECUTABLE="/usr/lib/llvm-9/bin/llvm-config" \
         ..
-RUN make && make install && make check
+RUN make -j$(nproc) && make install && make check
 
 # Add ikos to the path
 ENV PATH "/ikos/bin:$PATH"
 
 ########## Jenkins Dockerfile ##########
 
-RUN apt-get install sudo -y && \
-    sudo apt-get install -y \
-        openjdk-8-jdk \
-        maven
+RUN sudo apt-get install openjdk-8-jdk -y
+RUN sudo apt-get install maven -y
 
-RUN apt-get install -y wget gnupg gnupg2
 RUN wget -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 RUN sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-RUN sudo apt-get install -y jenkins && \
-    rm -rf /var/lib/apt/lists/* 
+RUN sudo apt-get -y update && \
+    sudo apt-get install -y jenkins
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 EXPOSE 8080 8081
