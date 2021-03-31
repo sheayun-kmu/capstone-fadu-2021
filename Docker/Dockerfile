@@ -1,19 +1,17 @@
 FROM ubuntu:18.04
 
-RUN apt-get update -y
-RUN apt-get upgrade -y
-
-########## cmocka ##########
-RUN apt-get install -y libcmocka-dev
-
 # Install all dependencies
-RUN apt-get install -y gnupg gnupg2
-RUN apt-get install -y gcc g++ cmake libgmp-dev libboost-dev
-RUN apt-get install -y libboost-filesystem-dev libboost-thread-dev libboost-test-dev python
-RUN apt-get install -y python-pygments libsqlite3-dev libtbb-dev libz-dev libedit-dev
-RUN apt-get install -y llvm-9 llvm-9-dev llvm-9-tools clang-9 wget
-RUN apt-get install -y gcovr nano iptables net-tools
-RUN apt-get install -y git curl fontconfig unzip vim sudo clang-format-10
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y \
+        libcmocka-dev \
+        gnupg gnupg2 \
+        gcc g++ cmake libgmp-dev libboost-dev \
+        libboost-filesystem-dev libboost-thread-dev libboost-test-dev python \
+        python-pygments libsqlite3-dev libtbb-dev libz-dev libedit-dev \
+        llvm-9 llvm-9-dev llvm-9-tools clang-9 wget \
+        gcovr nano iptables net-tools \ 
+        git curl fontconfig unzip vim sudo clang-format-10 && \
+    rm -rf /var/lib/apt/lists/* 
 
 ########## ikos ##########
 # TODO: ikos 환경 설치하기
@@ -41,27 +39,26 @@ RUN cmake \
         -DCMAKE_BUILD_TYPE="$build_type" \
         -DLLVM_CONFIG_EXECUTABLE="/usr/lib/llvm-9/bin/llvm-config" \
         ..
-RUN make
-RUN make install
-
-# Run the tests
-RUN make check
+RUN make && make install && make check
 
 # Add ikos to the path
 ENV PATH "/ikos/bin:$PATH"
 
 ########## Jenkins Dockerfile ##########
 
-RUN apt-get install sudo -y
-RUN sudo apt-get install openjdk-8-jdk -y
-RUN sudo apt-get install maven -y
+RUN apt-get install sudo -y && \
+    sudo apt-get install -y \
+        openjdk-8-jdk \
+        maven && \
+    rm -rf /var/lib/apt/lists/* 
 
 
 RUN apt-get install -y wget gnupg gnupg2
 RUN wget -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 RUN sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
-RUN sudo apt-get -y update
-RUN sudo apt-get install -y jenkins
+RUN sudo apt-get -y update && \
+    sudo apt-get install -y jenkins && \
+    rm -rf /var/lib/apt/lists/* 
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 EXPOSE 8080 8081
