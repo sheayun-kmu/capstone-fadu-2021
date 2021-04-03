@@ -39,7 +39,7 @@ public class ConvertJson {
 			array.add(writeJson(list));
 		}
 		parser.put("error", array);
-		System.out.println(parser.toJSONString());
+		//System.out.println(parser.toJSONString());
 		
 		writer.write(parser.toJSONString());
 		reader.close();
@@ -60,10 +60,6 @@ public class ConvertJson {
 		
 		return object;
 	}
-	public static void main(String[] args) throws IOException, ParseException {
-		// TODO Auto-generated method stub
-		new ConvertJson().readFile("/home/user/parser/Plugin/res.txt");
 
-	}
 
 }
