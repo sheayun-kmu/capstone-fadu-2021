@@ -11,9 +11,9 @@ public class Parser extends ConvertJson{
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException 
     {
         //JSON parser object to parse read file
-        ErrorStatus e = new ErrorStatus();
+
         JSONParser jsonParser = new JSONParser();
-        Object obj = jsonParser.parse(new FileReader("/home/user/parser/Plugin/out.json"));
+        Object obj = jsonParser.parse(new FileReader(new ConvertJson().readFile("/home/user/parser/Plugin/res.txt")));
         JSONObject jsonObject = (JSONObject) obj;
         //Get reports object
         JSONArray name = (JSONArray)jsonObject.get("error");
