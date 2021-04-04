@@ -18,6 +18,11 @@ import jenkins.tasks.SimpleBuildStep;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundSetter;
 
+import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import org.xml.sax.SAXException;
+
 public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
 
     private final String name;
@@ -43,11 +48,32 @@ public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
 
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
-        if (useFrench) {
-            listener.getLogger().println("Bonjour, " + name + "!");
-        } else {
-            listener.getLogger().println("Hello, " + name + "!");
-        }
+        try{
+		if (useFrench) {
+            		listener.getLogger().println("Bonjour, " + name + "!");
+        	} else {
+            		listener.getLogger().println("Hello, " + name + "!");
+            		convertToXml convert = new convertToXml();
+            		String path = convert.readFile("/var/jenkins_home/workspace/github_test/text.txt");
+            		xmlParser parser = new xmlParser();
+            		Report report = parser.extractInfo(path);
+            		List<List> t = report.tmp();
+            		for(int i = 0; i < t.size(); i++) {
+                		if(!t.get(i).isEmpty()) {
+                    			listener.getLogger().println(t.get(i));
+                		}
+            		}
+		}
+	}
+	catch(ParserConfigurationException e){
+		System.out.println(e);
+	}
+	catch(TransformerException e){
+		System.out.println(e);
+	}
+	catch(SAXException e){
+		System.out.println(e);
+	}
     }
 
     @Symbol("greet")
