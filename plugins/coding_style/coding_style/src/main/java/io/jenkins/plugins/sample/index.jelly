@@ -1,0 +1,10 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:st="jelly:stapler">
+    <l:layout title="Greeting">  <!-- 1 -->
+        <l:main-panel>           <!-- 2 -->
+            <h1>                 <!-- 3 -->
+                Name: ${it.name} <!-- 4 -->
+            </h1>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

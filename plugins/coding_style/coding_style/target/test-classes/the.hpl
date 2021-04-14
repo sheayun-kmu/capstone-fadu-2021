@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Group-Id: io.jenkins.plugins
+Short-Name: coding_style
+Long-Name: TODO Plugin
+Url: https://github.com/jenkinsci/coding_style-plugin
+Minimum-Java-Version: 1.8
+Plugin-Version: 1.0-SNAPSHOT (private-04/14/2021 06:34-root)
+Hudson-Version: 2.277.1
+Jenkins-Version: 2.277.1
+Plugin-Dependencies: workflow-basic-steps:2.23,workflow-cps:2.89,workf
+ low-durable-task-step:2.37,workflow-job:2.40,structs:1.22
+Plugin-Developers: 
+Plugin-License-Name: MIT License
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Plugin-ScmUrl: https://github.com/jenkinsci/coding_style-plugin
+Libraries: /home/work/coding_style/src/main/resources,/home/work/codin
+ g_style/target/classes
+Resource-Path: /home/work/coding_style/src/main/webapp
+
