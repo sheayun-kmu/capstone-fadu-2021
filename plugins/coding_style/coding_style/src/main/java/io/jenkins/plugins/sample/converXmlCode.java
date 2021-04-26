@@ -29,19 +29,41 @@ public class converXmlCode{
 
 		String statement = "";
 		initXmlForm();
+		List<String> contents = new ArrayList<String>();
 		while((statement = in.readLine()) != null) {
-			String data[] = statement.split(":");
-		//	for(int i = 0; i < data.length; i++) {
-				//System.out.println(data[i]);
-		//	}
-			//System.out.println(statement);
-			String code = in.readLine();
-			//System.out.println(code);
-			String position = in.readLine();
-			//System.out.println(position);
-			xmlForm(data, code, position);
+			contents.add(statement);
+//			if(statement.contains("Formatting")&&(statement.contains(".c"))) {
+//				
+//			}
+//			String data[] = statement.split(":");
+//			xmlForm(data, code, position);
 		}
 		in.close();
+		//System.out.println(contents.size());
+		int i = 0;
+		while(i < contents.size()) {
+			if(contents.get(i).contains("Formatting") && contents.get(i).endsWith(".c")) {
+//				if(contents.get(i).contains("Formatting")) {
+//					System.out.println(contents.get(i));
+//				}
+				
+				//if(contents.get(i+1) == null) break;
+				System.out.println(contents.get(i)); // 파일 이름
+				if(i+1 >= contents.size()) break;
+				i = i + 1;
+				while(contents.get(i).contains("Formatting") != true && contents.get(i) != null) {
+					// 수정 필요 내용들
+					String data[] = contents.get(i).split(":");
+					String code = contents.get(i+1);
+					String position = contents.get(i+2);
+					xmlForm(data, code, position);
+					i = i + 3;
+				}
+				//i = i - 1;
+				//i = i + 1;
+			}
+			//i = i + 1;
+		}
 		writeXml();
 		return "./out.xml";
 	}
