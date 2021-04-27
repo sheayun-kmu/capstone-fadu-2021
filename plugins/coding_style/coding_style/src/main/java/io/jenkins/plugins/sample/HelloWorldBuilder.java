@@ -69,7 +69,7 @@ public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
             		listener.getLogger().println("Bonjour, " + name + "!");
         	} else {
             		listener.getLogger().println("Hello, " + name + "!");
-        		converXmlCode convert = new converXmlCode();
+        		convertToXml convert = new convertToXml();
                 	String path = convert.readFile("/var/jenkins_home/workspace/github_test/text.txt");
                 	xmlParser parser = new xmlParser();
                 	Report report = parser.extractInfo(path);
