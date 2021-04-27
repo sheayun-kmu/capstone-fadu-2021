@@ -20,9 +20,9 @@ public class convertToXml  {
 	TransformerHandler transhandler;
 	AttributesImpl attributes;
 
-	public static void main (String args[]) {
-		new convertToXml().readFile("./res.txt");
-	}
+//	public static void main (String args[]) {
+//		new convertToXml().readFile("./res.txt");
+//	}
 
 	public String readFile (String filePath) {
 		try{
