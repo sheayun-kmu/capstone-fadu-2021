@@ -1,4 +1,4 @@
-package toXml;
+package io.jenkins.plugins.sample;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
