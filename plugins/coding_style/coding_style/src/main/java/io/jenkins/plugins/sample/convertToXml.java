@@ -3,6 +3,7 @@ package io.jenkins.plugins.sample;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
@@ -16,6 +17,7 @@ public class convertToXml  {
 
 	BufferedReader in;
 	StreamResult out;
+	Transformer serializer;
 
 	TransformerHandler transhandler;
 	AttributesImpl attributes;
@@ -27,7 +29,7 @@ public class convertToXml  {
 	public String readFile (String filePath) {
 		try{
 			in = new BufferedReader(new FileReader(filePath));
-			out = new StreamResult("/var/jenkins_home/workspace/github_test/out.xml");
+			out = new StreamResult(new File("/var/jenkins_home/workspace/github_test/out.xml"));
 
 			String statement = "";
 			List<String> contents = new ArrayList<String>();
@@ -74,7 +76,7 @@ public class convertToXml  {
 		SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
 
 		transhandler = tf.newTransformerHandler();
-		Transformer serializer = transhandler.getTransformer();
+		serializer = transhandler.getTransformer();
 		serializer.setOutputProperty(OutputKeys.ENCODING,"UTF-8");
 		serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 		serializer.setOutputProperty(OutputKeys.INDENT,"yes");
