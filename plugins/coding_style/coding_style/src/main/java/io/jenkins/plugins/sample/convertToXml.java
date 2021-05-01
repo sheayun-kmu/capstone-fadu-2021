@@ -1,151 +1,105 @@
 package io.jenkins.plugins.sample;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.File;
-
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileOutputStream;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
 import javax.xml.transform.sax.*;
+import org.xml.sax.*;
 
-public class convertToXml  {
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.*;
+import javax.xml.transform.dom.*;
 
+public class convertToXml{
+	Document xmldoc;
+	Element root;
 	BufferedReader in;
 	StreamResult out;
-	Transformer serializer;
+	public String readFile(String filePath) throws IOException, ParserConfigurationException, TransformerException {
+		in = new BufferedReader(new FileReader(filePath));
+		out = new StreamResult("/var/jenkins_home/workspace/github_test/out.xml");
 
-	TransformerHandler transhandler;
-	AttributesImpl attributes;
-
-//	public static void main (String args[]) {
-//		new convertToXml().readFile("./res.txt");
-//	}
-
-	public String readFile (String filePath) {
-		try{
-			in = new BufferedReader(new FileReader(filePath));
-			out = new StreamResult(new File("/var/jenkins_home/workspace/github_test/out.xml"));
-
-			String statement = "";
-			List<String> contents = new ArrayList<String>();
-			while((statement = in.readLine()) != null) {
-				contents.add(statement);
-			}
-			in.close();
-			int i = 0;
-			initXML();
-			System.out.println(contents.size());
-			while(i < contents.size()) {
-				if(contents.get(i).contains("Formatting") && contents.get(i).endsWith(".c")) {
-//					System.out.println(contents.get(i)); // 파일 이름
-					xmlFileTagStart(contents.get(i));
-					if(i+1 >= contents.size()) {
-						xmlFileTagEnd();
-						break;
-					}
-					i = i + 1;
-					while(contents.get(i).contains("Formatting") != true && contents.get(i) != null) {
-						// 수정 필요 내용들
-//						System.out.println(contents.get(i));
-//						System.out.println(contents.get(i+1));
-//						System.out.println(contents.get(i+2));
-						String data[] = contents.get(i).split(":");
-						String code = contents.get(i+1);
-						String position = contents.get(i+2);
-						xmlForm(data, code, position);
-						i = i + 3;
-					}
-					xmlFileTagEnd();
-				}
-			}
-			closeXML();
+		String statement = "";
+		initXmlForm();
+		while((statement = in.readLine()) != null) {
+			String data[] = statement.split(":");
+		//	for(int i = 0; i < data.length; i++) {
+				//System.out.println(data[i]);
+		//	}
+			//System.out.println(statement);
+			String code = in.readLine();
+			//System.out.println(code);
+			String position = in.readLine();
+			//System.out.println(position);
+			xmlForm(data, code, position);
 		}
-		catch (Exception e) { 
-			e.printStackTrace(); 
-		}
-		return "./out.xml";
-	}
-
-
-	public void initXML() throws ParserConfigurationException, TransformerConfigurationException, SAXException {
-		SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
-
-		transhandler = tf.newTransformerHandler();
-		serializer = transhandler.getTransformer();
-		serializer.setOutputProperty(OutputKeys.ENCODING,"UTF-8");
-		serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-		serializer.setOutputProperty(OutputKeys.INDENT,"yes");
-		transhandler.setResult(out);
-		transhandler.startDocument();
-		attributes = new AttributesImpl();
-		transhandler.startElement("","","analysisReport",attributes);
+		in.close();
+		writeXml();
+		return "/var/jenkins_home/workspace/github_test/out.xml";
 	}
 	
-	public void xmlFileTagStart(String fileName) throws SAXException {
-		attributes.clear();
-		//attributes.addAttribute("", "", "class", "", "linked-hash-set");
-		transhandler.startElement("","","elements",attributes);
-		//transhandler.characters(fileName.toCharArray(),0,fileName.length());
-	}
-
-	public void xmlForm (String data[], String code, String position) throws SAXException {
-		attributes.clear();
-		transhandler.startElement("","","issue",attributes);
-
-		transhandler.startElement("","","category",attributes);
-		transhandler.characters("category".toCharArray(),0,8);
-		transhandler.endElement("","","category");
-		
-		transhandler.startElement("","","type",attributes);
-		transhandler.characters("type".toCharArray(),0,4);
-		transhandler.endElement("","","type");
-		
-		transhandler.startElement("","","severity",attributes);
-		transhandler.characters(data[3].toCharArray(),0,data[3].length());
-		transhandler.endElement("","","severity");
-		
-		transhandler.startElement("","","message",attributes);
-		transhandler.characters(data[4].toCharArray(),0,data[4].length());
-		transhandler.endElement("","","message");
-		
-		transhandler.startElement("","","lineStart",attributes);
-		transhandler.characters(data[1].trim().toCharArray(),0,data[1].length());
-		transhandler.endElement("","","lineStart");
-		
-		transhandler.startElement("","","lineEnd",attributes);
-		transhandler.characters(data[1].trim().toCharArray(),0,data[1].length());
-		transhandler.endElement("","","lineEnd");
-		
-		transhandler.startElement("","","columnStart",attributes);
-		transhandler.characters(data[2].trim().toCharArray(),0,data[2].length());
-		transhandler.endElement("","","columnStart");
-		
-		transhandler.startElement("","","columnEnd",attributes);
-		transhandler.characters(data[2].trim().toCharArray(),0,data[2].length());
-		transhandler.endElement("","","columnEnd");
-		
-//		transhandler.startElement("","","CODE",attributes);
-//		transhandler.characters(code.toCharArray(),0,code.length());
-//		transhandler.endElement("","","CODE");
-//
-//		transhandler.startElement("","","POSITION",attributes);
-//		transhandler.characters(position.toCharArray(),0,position.length());
-//		transhandler.endElement("","","POSITION");
-
-		transhandler.endElement("","","issue");
+	public void initXmlForm() throws ParserConfigurationException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	    DocumentBuilder builder = factory.newDocumentBuilder();
+	    DOMImplementation impl = builder.getDOMImplementation();
+	    
+	    xmldoc = impl.createDocument(null, "report", null);
+	    root = xmldoc.getDocumentElement();
 	}
 	
-	public void xmlFileTagEnd() throws SAXException {
-		transhandler.endElement("","","elements");
+	public void xmlForm(String data[], String code, String position) {
+		Element caseIdentifier = xmldoc.createElement("issue");
+		Element fileName = xmldoc.createElement("category");
+		Element fileLine = xmldoc.createElement("type");
+		//Element ruleNumber = xmldoc.createElement("rule");
+		Element codeSeverity = xmldoc.createElement("severity");
+		//Element wrongCode = xmldoc.createElement("code");
+		//Element wrongPosition = xmldoc.createElement("position");
+		
+		Node file = xmldoc.createTextNode(data[0]);
+		Node line = xmldoc.createTextNode(data[1]);
+		Node rule = xmldoc.createTextNode(data[2]);
+		Node seve = xmldoc.createTextNode(data[3].trim());
+		Node codeStatement = xmldoc.createTextNode(code);
+		Node codePosition = xmldoc.createTextNode(position);
+		
+		fileName.appendChild(file);
+		fileLine.appendChild(line);
+		//ruleNumber.appendChild(rule);
+		codeSeverity.appendChild(seve);
+		//wrongCode.appendChild(codeStatement);
+		//wrongPosition.appendChild(codePosition);
+		
+		caseIdentifier.appendChild(fileName);
+		caseIdentifier.appendChild(fileLine);
+		//caseIdentifier.appendChild(ruleNumber);
+		caseIdentifier.appendChild(codeSeverity);
+		//caseIdentifier.appendChild(wrongCode);
+		//caseIdentifier.appendChild(wrongPosition);
+		
+		root.appendChild(caseIdentifier);
 	}
+	
+	public void writeXml() throws TransformerException, IOException {
+		 DOMSource domSource = new DOMSource(xmldoc);
+	    TransformerFactory tf = TransformerFactory.newInstance();
+	    
+	    Transformer transformer = tf.newTransformer();
+	    transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+	    transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+	    transformer.setOutputProperty(OutputKeys.ENCODING,"UTF-8");
+	    transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+	    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
-	public void closeXML() throws SAXException {
-		transhandler.endElement("","","analysisReport");
-		transhandler.endDocument();  
+	    transformer.transform(domSource, out);
 	}
+	
 }
