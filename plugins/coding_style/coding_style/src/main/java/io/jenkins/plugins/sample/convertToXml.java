@@ -62,7 +62,6 @@ public class convertToXml{
 		Element type = xmldoc.createElement("type"); 
 		Element category = xmldoc.createElement("category");
 
-		//Element ruleNumber = xmldoc.createElement("rule");
 		Element codeSeverity = xmldoc.createElement("severity");
 		Element message = xmldoc.createElement("message");
 		Element fileLineStart = xmldoc.createElement("lineStart");
@@ -85,9 +84,6 @@ public class convertToXml{
 		Node ColumnStart = xmldoc.createTextNode(Integer.toString(column));
 		Node ColumnEnd = xmldoc.createTextNode(Integer.toString(column));
 		Node FileName = xmldoc.createTextNode(data[0]);
-	
-		//Node codeStatement = xmldoc.createTextNode(code);
-		//Node codePosition = xmldoc.createTextNode(position);
 		
 		category.appendChild(Category);
 		type.appendChild(Type);
@@ -98,10 +94,7 @@ public class convertToXml{
 		columnStart.appendChild(ColumnStart);
 		columnEnd.appendChild(ColumnEnd);
 		fileName.appendChild(FileName);
-		
-		//wrongCode.appendChild(codeStatement);
-		//wrongPosition.appendChild(codePosition);
-		
+
 		caseIdentifier.appendChild(category);
 		caseIdentifier.appendChild(type);
 		caseIdentifier.appendChild(codeSeverity);
@@ -111,9 +104,6 @@ public class convertToXml{
 		caseIdentifier.appendChild(columnStart);
 		caseIdentifier.appendChild(columnEnd);
 		caseIdentifier.appendChild(fileName);
-			
-		//caseIdentifier.appendChild(wrongCode);
-		//caseIdentifier.appendChild(wrongPosition);
 		
 		root.appendChild(caseIdentifier);
 	}
@@ -128,16 +118,6 @@ public class convertToXml{
 	    transformer.setOutputProperty(OutputKeys.ENCODING,"UTF-8");
 	    transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 	    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-//	    BufferedReader a = new BufferedReader(new FileReader("./out.xml"));
-//	    String s;
-//	    while((s = a.readLine()) != null) {
-//	    	System.out.println(s);
-//	    }
 	    transformer.transform(domSource, out);
 	}
-	
-//	public static void main(String args[]) throws IOException, ParserConfigurationException, TransformerException{
-//		new converXmlCode().readFile("./res.txt");
-//		// /usr/lib/terminfo/text.txt
-//	}
 }
