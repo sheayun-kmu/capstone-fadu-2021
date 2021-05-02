@@ -1,4 +1,6 @@
 package io.jenkins.plugins.sample;
+
+import java.lang.String;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.BufferedReader;
@@ -57,31 +59,59 @@ public class convertToXml{
 	
 	public void xmlForm(String data[], String code, String position) {
 		Element caseIdentifier = xmldoc.createElement("issue");
-		Element fileName = xmldoc.createElement("category");
-		Element fileLine = xmldoc.createElement("type");
+		Element type = xmldoc.createElement("type"); 
+		Element category = xmldoc.createElement("category");
+
 		//Element ruleNumber = xmldoc.createElement("rule");
 		Element codeSeverity = xmldoc.createElement("severity");
+		Element message = xmldoc.createElement("message");
+		Element fileLineStart = xmldoc.createElement("lineStart");
+                Element fileLineEnd = xmldoc.createElement("lineEnd");
+                Element columnStart = xmldoc.createElement("columnStart");
+                Element columnEnd = xmldoc.createElement("columnEnd");
+		Element fileName = xmldoc.createElement("fileName");
+
 		//Element wrongCode = xmldoc.createElement("code");
 		//Element wrongPosition = xmldoc.createElement("position");
 		
-		Node file = xmldoc.createTextNode(data[0]);
-		Node line = xmldoc.createTextNode(data[1]);
-		Node rule = xmldoc.createTextNode(data[2]);
-		Node seve = xmldoc.createTextNode(data[3].trim());
-		Node codeStatement = xmldoc.createTextNode(code);
-		Node codePosition = xmldoc.createTextNode(position);
+		Node Category = xmldoc.createTextNode("Coding style");
+		Node Type = xmldoc.createTextNode("Code stlye check");
+		Node Severity = xmldoc.createTextNode(data[3].trim());
+		Node Message = xmldoc.createTextNode(data[4]);
+		Node LineStart = xmldoc.createTextNode(data[1]);
+		Node LineEnd = xmldoc.createTextNode(data[1]);
+
+		int column = position.indexOf("^");
+		Node ColumnStart = xmldoc.createTextNode(Integer.toString(column));
+		Node ColumnEnd = xmldoc.createTextNode(Integer.toString(column));
+		Node FileName = xmldoc.createTextNode(data[0]);
+	
+		//Node codeStatement = xmldoc.createTextNode(code);
+		//Node codePosition = xmldoc.createTextNode(position);
 		
-		fileName.appendChild(file);
-		fileLine.appendChild(line);
-		//ruleNumber.appendChild(rule);
-		codeSeverity.appendChild(seve);
+		category.appendChild(Category);
+		type.appendChild(Type);
+		codeSeverity.appendChild(Severity);
+		message.appendChild(Message);
+		fileLineStart.appendChild(LineStart);
+		fileLineEnd.appendChild(LineEnd);
+		columnStart.appendChild(ColumnStart);
+		columnEnd.appendChild(ColumnEnd);
+		fileName.appendChild(FileName);
+		
 		//wrongCode.appendChild(codeStatement);
 		//wrongPosition.appendChild(codePosition);
 		
-		caseIdentifier.appendChild(fileName);
-		caseIdentifier.appendChild(fileLine);
-		//caseIdentifier.appendChild(ruleNumber);
+		caseIdentifier.appendChild(category);
+		caseIdentifier.appendChild(type);
 		caseIdentifier.appendChild(codeSeverity);
+		caseIdentifier.appendChild(message);
+		caseIdentifier.appendChild(fileLineStart);
+		caseIdentifier.appendChild(fileLineEnd);
+		caseIdentifier.appendChild(columnStart);
+		caseIdentifier.appendChild(columnEnd);
+		caseIdentifier.appendChild(fileName);
+			
 		//caseIdentifier.appendChild(wrongCode);
 		//caseIdentifier.appendChild(wrongPosition);
 		
@@ -98,8 +128,16 @@ public class convertToXml{
 	    transformer.setOutputProperty(OutputKeys.ENCODING,"UTF-8");
 	    transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 	    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
+//	    BufferedReader a = new BufferedReader(new FileReader("./out.xml"));
+//	    String s;
+//	    while((s = a.readLine()) != null) {
+//	    	System.out.println(s);
+//	    }
 	    transformer.transform(domSource, out);
 	}
 	
+//	public static void main(String args[]) throws IOException, ParserConfigurationException, TransformerException{
+//		new converXmlCode().readFile("./res.txt");
+//		// /usr/lib/terminfo/text.txt
+//	}
 }
