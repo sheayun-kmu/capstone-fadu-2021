@@ -80,9 +80,10 @@ public class convertToXml{
 		Node LineStart = xmldoc.createTextNode(data[1]);
 		Node LineEnd = xmldoc.createTextNode(data[1]);
 
-		int column = position.indexOf("^");
-		Node ColumnStart = xmldoc.createTextNode(Integer.toString(column));
-		Node ColumnEnd = xmldoc.createTextNode(Integer.toString(column));
+		int columnRangeStart = position.indexOf("^");
+		Node ColumnStart = xmldoc.createTextNode(Integer.toString(columnRangeStart));
+		int columnRangeEnd = position.length()-1;
+		Node ColumnEnd = xmldoc.createTextNode(Integer.toString(columnRangeEnd));
 		Node FileName = xmldoc.createTextNode(data[0]);
 		
 		category.appendChild(Category);
