@@ -27,7 +27,7 @@ public class convertToXml{
 	StreamResult out;
 	public String readFile(String filePath) throws IOException, ParserConfigurationException, TransformerException {
 		in = new BufferedReader(new FileReader(filePath));
-		out = new StreamResult("/var/jenkins_home/workspace/github_test/out.xml");
+		out = new StreamResult("/var/jenkins_home/workspace/out.xml");
 
 		String statement = "";
 		initXmlForm();
