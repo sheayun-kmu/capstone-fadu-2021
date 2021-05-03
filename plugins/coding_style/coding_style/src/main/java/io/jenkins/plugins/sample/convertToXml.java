@@ -33,14 +33,8 @@ public class convertToXml{
 		initXmlForm();
 		while((statement = in.readLine()) != null) {
 			String data[] = statement.split(":");
-		//	for(int i = 0; i < data.length; i++) {
-				//System.out.println(data[i]);
-		//	}
-			//System.out.println(statement);
 			String code = in.readLine();
-			//System.out.println(code);
 			String position = in.readLine();
-			//System.out.println(position);
 			xmlForm(data, code, position);
 		}
 		in.close();
