@@ -63,9 +63,6 @@ public class convertToXml{
                 Element columnStart = xmldoc.createElement("columnStart");
                 Element columnEnd = xmldoc.createElement("columnEnd");
 		Element fileName = xmldoc.createElement("fileName");
-
-		//Element wrongCode = xmldoc.createElement("code");
-		//Element wrongPosition = xmldoc.createElement("position");
 		
 		Node Category = xmldoc.createTextNode("Coding style");
 		Node Type = xmldoc.createTextNode("Code stlye check");
