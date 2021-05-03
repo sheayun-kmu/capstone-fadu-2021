@@ -39,7 +39,7 @@ public class convertToXml{
 		}
 		in.close();
 		writeXml();
-		return "/var/jenkins_home/workspace/github_test/out.xml";
+		return "/var/jenkins_home/workspace/github_test/github_test/out.xml";
 	}
 	
 	public void initXmlForm() throws ParserConfigurationException {
