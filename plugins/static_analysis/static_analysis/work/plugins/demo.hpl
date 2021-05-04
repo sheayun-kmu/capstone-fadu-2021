@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Group-Id: io.jenkins.plugins
+Short-Name: demo
+Long-Name: TODO Plugin
+Minimum-Java-Version: 1.8
+Plugin-Version: 1.0-SNAPSHOT (private-05/04/2021 13:19-root)
+Hudson-Version: 2.164.1
+Jenkins-Version: 2.164.1
+Plugin-Dependencies: structs:1.19
+Plugin-Developers: 
+Libraries: /home/work/demo/src/main/resources,/home/work/demo/target/c
+ lasses,/root/.m2/repository/org/json/json/20210307/json-20210307.jar
+Resource-Path: /home/work/demo/src/main/webapp
+
