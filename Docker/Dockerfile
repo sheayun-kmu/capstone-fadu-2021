@@ -34,6 +34,7 @@ RUN cmake \
         -DCMAKE_BUILD_TYPE="$build_type" \
         -DLLVM_CONFIG_EXECUTABLE="/usr/lib/llvm-9/bin/llvm-config" \
         ..
+RUN make VERBOSE=1
 RUN make -j$(nproc) && make install && make check
 
 # Add ikos to the path
