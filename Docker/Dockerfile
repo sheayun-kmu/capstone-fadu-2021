@@ -14,7 +14,6 @@ RUN apt-get update && apt-get upgrade -y && \
         gcovr nano git curl fontconfig unzip vim sudo clang-format-10 
 
 ########## ikos ##########
-# TODO: ikos 환경 설치하기
 MAINTAINER Maxime Arthaud <maxime.arthaud@nasa.gov>
 ARG build_type=Release
 
