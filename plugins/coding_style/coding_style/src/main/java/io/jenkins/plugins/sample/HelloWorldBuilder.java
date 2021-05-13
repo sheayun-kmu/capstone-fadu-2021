@@ -69,28 +69,16 @@ public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
             		listener.getLogger().println("Bonjour, " + name + "!");
         	} else {
             		listener.getLogger().println("Hello, " + name + "!");
-        		convertToXml convert = new convertToXml();
-                	String path = convert.readFile("/var/jenkins_home/workspace/github_test/text.txt");
-                	xmlParser parser = new xmlParser();
-                	Report report = parser.extractInfo(path);
-                	System.out.println(report);
-                	List<List> t = report.tmp();
-                	for(int i = 0; i < t.size(); i++) {
-                        	if(!t.get(i).isEmpty()) {
-                                	listener.getLogger().println(t.get(i));
-                        	}
-                	}
-
+        		converXmlCode convert = new converXmlCode();
+                	//convert.readFile("/var/lib/jenkins/workspace/github_test/text.txt");
+                	String path = workspace + "/" + name;
+			listener.getLogger().println(path);
+			String currentWorkspace = workspace + "/";
+			convert.readFile(path, currentWorkspace);
 		}
 	}
-	catch(ParserConfigurationException e){
+	catch(Exception e){
 		System.out.println("a");	
-	}
-	catch(TransformerException e){
-		System.out.println("b");
-	}
-	catch(SAXException e){
-		System.out.println("c");
 	}
     }
 
@@ -101,12 +89,7 @@ public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
         public FormValidation doCheckName(@QueryParameter String value, @QueryParameter boolean useFrench)
                 throws IOException, ServletException {
             if (value.length() == 0)
-                return FormValidation.error(Messages.HelloWorldBuilder_DescriptorImpl_errors_missingName());
-            if (value.length() < 4)
-                return FormValidation.warning(Messages.HelloWorldBuilder_DescriptorImpl_warnings_tooShort());
-            if (!useFrench && value.matches(".*[éáàç].*")) {
-                return FormValidation.warning(Messages.HelloWorldBuilder_DescriptorImpl_warnings_reallyFrench());
-            }
+                return FormValidation.error(Messages.HelloWorldBuilder_DescriptorImpl_errors_missingName()); 
             return FormValidation.ok();
         }
 
