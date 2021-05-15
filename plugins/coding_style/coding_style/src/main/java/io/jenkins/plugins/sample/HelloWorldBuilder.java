@@ -27,22 +27,7 @@ public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
 
     private final String name;
     private boolean useFrench;
-/*
-    @Override
-    public String getIconFileName(){
-	    return "document.png";
-    }
 
-    @Override
-    public String getDisplayName(){
-	    return "Greeting";
-    }
-
-    @Override
-    public String getUrlName(){
-	    return "greeting";
-    }
-*/
     @DataBoundConstructor
     public HelloWorldBuilder(String name) {
         this.name = name;
@@ -63,22 +48,20 @@ public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
 
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
-	try{
-		run.addAction(new Actions_sidePanel(name));	
+	try{	
 		if (useFrench) {
             		listener.getLogger().println("Bonjour, " + name + "!");
         	} else {
             		listener.getLogger().println("Hello, " + name + "!");
-        		converXmlCode convert = new converXmlCode();
-                	//convert.readFile("/var/lib/jenkins/workspace/github_test/text.txt");
+        		converXmlCode convert = new converXmlCode();	
                 	String path = workspace + "/" + name;
 			listener.getLogger().println(path);
-			String currentWorkspace = workspace + "/";
+			String currentWorkspace = workspace + "/";	
 			convert.readFile(path, currentWorkspace);
 		}
 	}
 	catch(Exception e){
-		System.out.println("a");	
+		listener.getLogger().println("Exception happened");
 	}
     }
 

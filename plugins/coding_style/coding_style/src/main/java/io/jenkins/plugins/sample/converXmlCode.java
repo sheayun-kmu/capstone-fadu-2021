@@ -1,5 +1,7 @@
 package io.jenkins.plugins.sample;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.lang.String;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,14 +22,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.*;
 import javax.xml.transform.dom.*;
 
-public class convertToXml{
+public class converXmlCode{
 	Document xmldoc;
 	Element root;
 	BufferedReader in;
 	StreamResult out;
-	public String readFile(String filePath) throws IOException, ParserConfigurationException, TransformerException {
+	public void readFile(String filePath, String workspace) throws IOException, ParserConfigurationException, TransformerException {
 		in = new BufferedReader(new FileReader(filePath));
-		out = new StreamResult("/var/jenkins_home/workspace/out.xml");
+		String storedLoc = workspace + "out.xml";
+		out = new StreamResult(storedLoc);
 
 		String statement = "";
 		initXmlForm();
@@ -39,7 +42,6 @@ public class convertToXml{
 		}
 		in.close();
 		writeXml();
-		return "/var/jenkins_home/workspace/github_test/github_test/out.xml";
 	}
 	
 	public void initXmlForm() throws ParserConfigurationException {
@@ -55,7 +57,6 @@ public class convertToXml{
 		Element caseIdentifier = xmldoc.createElement("issue");
 		Element type = xmldoc.createElement("type"); 
 		Element category = xmldoc.createElement("category");
-
 		Element codeSeverity = xmldoc.createElement("severity");
 		Element message = xmldoc.createElement("message");
 		Element fileLineStart = xmldoc.createElement("lineStart");
@@ -63,7 +64,6 @@ public class convertToXml{
                 Element columnStart = xmldoc.createElement("columnStart");
                 Element columnEnd = xmldoc.createElement("columnEnd");
 		Element fileName = xmldoc.createElement("fileName");
-		
 		Node Category = xmldoc.createTextNode("Coding style");
 		Node Type = xmldoc.createTextNode("Code stlye check");
 		Node Severity = xmldoc.createTextNode(data[3].trim());
@@ -76,7 +76,6 @@ public class convertToXml{
 		int columnRangeEnd = position.length()-1;
 		Node ColumnEnd = xmldoc.createTextNode(Integer.toString(columnRangeEnd));
 		Node FileName = xmldoc.createTextNode(data[0]);
-		
 		category.appendChild(Category);
 		type.appendChild(Type);
 		codeSeverity.appendChild(Severity);
@@ -86,7 +85,7 @@ public class convertToXml{
 		columnStart.appendChild(ColumnStart);
 		columnEnd.appendChild(ColumnEnd);
 		fileName.appendChild(FileName);
-
+		
 		caseIdentifier.appendChild(category);
 		caseIdentifier.appendChild(type);
 		caseIdentifier.appendChild(codeSeverity);
@@ -96,12 +95,12 @@ public class convertToXml{
 		caseIdentifier.appendChild(columnStart);
 		caseIdentifier.appendChild(columnEnd);
 		caseIdentifier.appendChild(fileName);
-		
+			
 		root.appendChild(caseIdentifier);
 	}
 	
 	public void writeXml() throws TransformerException, IOException {
-		 DOMSource domSource = new DOMSource(xmldoc);
+	    DOMSource domSource = new DOMSource(xmldoc);
 	    TransformerFactory tf = TransformerFactory.newInstance();
 	    
 	    Transformer transformer = tf.newTransformer();
@@ -110,6 +109,7 @@ public class convertToXml{
 	    transformer.setOutputProperty(OutputKeys.ENCODING,"UTF-8");
 	    transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 	    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
 	    transformer.transform(domSource, out);
 	}
 }
