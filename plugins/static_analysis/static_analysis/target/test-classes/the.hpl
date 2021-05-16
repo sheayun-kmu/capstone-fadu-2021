@@ -3,12 +3,13 @@ Group-Id: io.jenkins.plugins
 Short-Name: demo
 Long-Name: TODO Plugin
 Minimum-Java-Version: 1.8
-Plugin-Version: 1.0-SNAPSHOT (private-05/04/2021 13:14-root)
+Plugin-Version: 1.0-SNAPSHOT (private-05/14/2021 12:52-root)
 Hudson-Version: 2.164.1
 Jenkins-Version: 2.164.1
 Plugin-Dependencies: structs:1.19
 Plugin-Developers: 
-Libraries: /home/work/demo/src/main/resources,/home/work/demo/target/c
- lasses,/root/.m2/repository/org/json/json/20210307/json-20210307.jar
-Resource-Path: /home/work/demo/src/main/webapp
+Libraries: /home/work/static_analysis/src/main/resources,/home/work/st
+ atic_analysis/target/classes,/root/.m2/repository/com/googlecode/json
+ -simple/json-simple/1.1.1/json-simple-1.1.1.jar
+Resource-Path: /home/work/static_analysis/src/main/webapp
 

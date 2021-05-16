@@ -1,2 +1,3 @@
-/home/work/demo/src/main/java/io/jenkins/plugins/sample/HelloWorldBuilder.java
-/home/work/demo/target/generated-sources/localizer/io/jenkins/plugins/sample/Messages.java
+/home/work/static_analysis/target/generated-sources/localizer/io/jenkins/plugins/sample/Messages.java
+/home/work/static_analysis/src/main/java/io/jenkins/plugins/sample/TranslatorJson.java
+/home/work/static_analysis/src/main/java/io/jenkins/plugins/sample/HelloWorldBuilder.java
