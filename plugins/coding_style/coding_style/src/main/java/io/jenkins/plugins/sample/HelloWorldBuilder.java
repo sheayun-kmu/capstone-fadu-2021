@@ -26,8 +26,7 @@ import org.xml.sax.SAXException;
 public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
 
     private final String name;
-    private boolean useFrench;
-
+    
     @DataBoundConstructor
     public HelloWorldBuilder(String name) {
         this.name = name;
@@ -37,28 +36,15 @@ public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
         return name;
     }
 
-    public boolean isUseFrench() {
-        return useFrench;
-    }
-
-    @DataBoundSetter
-    public void setUseFrench(boolean useFrench) {
-        this.useFrench = useFrench;
-    }
-
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
 	try{	
-		if (useFrench) {
-            		listener.getLogger().println("Bonjour, " + name + "!");
-        	} else {
-            		listener.getLogger().println("Hello, " + name + "!");
-        		converXmlCode convert = new converXmlCode();	
-                	String path = workspace + "/" + name;
-			listener.getLogger().println(path);
-			String currentWorkspace = workspace + "/";	
-			convert.readFile(path, currentWorkspace);
-		}
+            	listener.getLogger().println("Hello, " + name + "!");
+        	converXmlCode convert = new converXmlCode();	
+                String path = workspace + "/" + name;
+		listener.getLogger().println(path);
+		String currentWorkspace = workspace + "/";	
+		convert.readFile(path, currentWorkspace);
 	}
 	catch(Exception e){
 		listener.getLogger().println("Exception happened");
