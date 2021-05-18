@@ -1,1 +1,1 @@
-io.jenkins.plugins.sample.HelloWorldBuilder$DescriptorImpl
+io.jenkins.plugins.CodeStyleBuilder$DescriptorImpl

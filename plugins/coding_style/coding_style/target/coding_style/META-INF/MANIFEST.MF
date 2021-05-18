@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Built-By: root
 Created-By: Apache Maven
-Build-Jdk: 1.8.0_282
+Build-Jdk: 1.8.0_292
 Extension-Name: coding_style
 Specification-Title: The Jenkins Plugins Parent POM Project
 Implementation-Title: coding_style
@@ -11,11 +11,9 @@ Short-Name: coding_style
 Long-Name: TODO Plugin
 Url: https://github.com/jenkinsci/coding_style-plugin
 Minimum-Java-Version: 1.8
-Plugin-Version: 1.0-SNAPSHOT (private-04/14/2021 06:34-root)
+Plugin-Version: 1.0-SNAPSHOT (private-05/18/2021 13:02-root)
 Hudson-Version: 2.277.1
 Jenkins-Version: 2.277.1
-Plugin-Dependencies: workflow-basic-steps:2.23,workflow-cps:2.89,workf
- low-durable-task-step:2.37,workflow-job:2.40,structs:1.22
 Plugin-Developers: 
 Plugin-License-Name: MIT License
 Plugin-License-Url: https://opensource.org/licenses/MIT
