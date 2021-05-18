@@ -21,8 +21,7 @@ import org.kohsuke.stapler.DataBoundSetter;
 public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
 
     private final String name;
-    private boolean useFrench;
-
+    
     @DataBoundConstructor
     public HelloWorldBuilder(String name) {
         this.name = name;
@@ -32,26 +31,12 @@ public class HelloWorldBuilder extends Builder implements SimpleBuildStep {
         return name;
     }
 
-    public boolean isUseFrench() {
-        return useFrench;
-    }
-
-    @DataBoundSetter
-    public void setUseFrench(boolean useFrench) {
-        this.useFrench = useFrench;
-    }
-
     @Override
-    public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
-        if (useFrench) {
-            listener.getLogger().println("Bonjour, " + name + "!");
-        } else {
-            listener.getLogger().println("Hello, " + name + "!"); 
-	    TranslatorJson trj = new TranslatorJson();
-	    String fileWorkspace = workspace + "/" + name;
-	    String storeWorkspace = workspace + "/";
-	    trj.readFile(fileWorkspace, storeWorkspace);
-        }
+    public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException { 
+	TranslatorJson trj = new TranslatorJson();
+        String fileWorkspace = workspace + "/" + name;
+	String storeWorkspace = workspace + "/";
+	trj.readFile(fileWorkspace, storeWorkspace);
     }
 
     @Symbol("greet")
