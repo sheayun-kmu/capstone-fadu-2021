@@ -5,5 +5,5 @@ pwd > path.txt
 read value < path.txt
 while read line
 do 
-    clang-format-10 --dry-run "${value}/${line}"
+    clang-format-10 --dry-run -style=file "${value}/${line}"
 done < list.txt 2>> checked.txt
