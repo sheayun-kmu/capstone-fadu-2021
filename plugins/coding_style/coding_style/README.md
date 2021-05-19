@@ -2,12 +2,19 @@
 
 ## Introduction
 
-TODO Describe what your plugin does here
+Check code style with using clang-format, and show the result with warning-ng graph.
 
 ## Getting started
 
-TODO Tell users how to configure your plugin here, include screenshots, pipeline examples and 
-configuration-as-code examples.
+This plugin is tested based on Freestyle project on Jenkins.
+
+1. Make a Freestyle project in Jenkins.
+2. Connect your github repository with Jenkins.
+3. Download hpi file in target directory and upload it on Jenkins.
+4. Copy or download shell file and paste or use it When build option on Jenkins.
+5. After then, on Build step, select uploaded plugin, and write text file namd and format that checked on shell script(e.g text.txt)
+6. On post build step, select warning ng plugin and write **/out.xml.
+7. After then, if you build, it will show the checked result with graph.
 
 ## Issues
 
