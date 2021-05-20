@@ -6,10 +6,10 @@ import java.util.*;
  */
 public class InjectedTest extends junit.framework.TestCase {
   public static junit.framework.Test suite() throws Exception {
-    System.out.println("Running tests for "+"io.jenkins.plugins:demo:1.0-SNAPSHOT");
+    System.out.println("Running tests for "+"io.jenkins.plugins:static_analysis:1.0-SNAPSHOT");
     Map<String, Object> parameters = new HashMap<String, Object>();
     parameters.put("basedir","/home/work/static_analysis");
-    parameters.put("artifactId","demo");
+    parameters.put("artifactId","static_analysis");
     parameters.put("packaging","hpi");
     parameters.put("outputDirectory","/home/work/static_analysis/target/classes");
     parameters.put("testOutputDirectory","/home/work/static_analysis/target/test-classes");
