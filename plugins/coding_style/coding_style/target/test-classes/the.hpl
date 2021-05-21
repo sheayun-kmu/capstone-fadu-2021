@@ -4,7 +4,7 @@ Short-Name: coding_style
 Long-Name: Coding Style Status Reporter Plugin
 Url: https://github.com/jenkinsci/coding_style-plugin
 Minimum-Java-Version: 1.8
-Plugin-Version: 1.0-SNAPSHOT (private-05/18/2021 14:57-root)
+Plugin-Version: 1.0-SNAPSHOT (private-05/21/2021 00:57-root)
 Hudson-Version: 2.277.1
 Jenkins-Version: 2.277.1
 Plugin-Developers: 

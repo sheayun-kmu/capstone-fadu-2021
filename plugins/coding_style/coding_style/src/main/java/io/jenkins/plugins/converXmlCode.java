@@ -29,7 +29,7 @@ public class converXmlCode{
 	StreamResult out;
 	public void readFile(String filePath, String workspace) throws IOException, ParserConfigurationException, TransformerException {
 		in = new BufferedReader(new FileReader(filePath));
-		String storedLoc = workspace + "out.xml";
+		String storedLoc = workspace + "report.xml";
 		out = new StreamResult(storedLoc);
 
 		String statement = "";
