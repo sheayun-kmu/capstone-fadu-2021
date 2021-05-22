@@ -1,15 +1,18 @@
 Manifest-Version: 1.0
 Group-Id: io.jenkins.plugins
 Short-Name: static_analysis
-Long-Name: Static Analysis reporter Plugin
+Long-Name: TODO Plugin
+Url: https://github.com/jenkinsci/static_analysis-plugin
 Minimum-Java-Version: 1.8
-Plugin-Version: 1.0-SNAPSHOT (private-05/15/2021 06:06-root)
-Hudson-Version: 2.164.1
-Jenkins-Version: 2.164.1
-Plugin-Dependencies: structs:1.19
+Plugin-Version: 1.0-SNAPSHOT (private-05/18/2021 13:31-root)
+Hudson-Version: 2.277.1
+Jenkins-Version: 2.277.1
 Plugin-Developers: 
-Libraries: /home/work/static_analysis/src/main/resources,/home/work/st
- atic_analysis/target/classes,/root/.m2/repository/com/googlecode/json
- -simple/json-simple/1.1.1/json-simple-1.1.1.jar
-Resource-Path: /home/work/static_analysis/src/main/webapp
+Plugin-License-Name: MIT License
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Plugin-ScmUrl: https://github.com/jenkinsci/static_analysis-plugin
+Libraries: /home/work/personal/static_analysis/src/main/resources,/hom
+ e/work/personal/static_analysis/target/classes,/root/.m2/repository/c
+ om/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar
+Resource-Path: /home/work/personal/static_analysis/src/main/webapp
 

@@ -8,11 +8,14 @@ Implementation-Title: static_analysis
 Implementation-Version: 1.0-SNAPSHOT
 Group-Id: io.jenkins.plugins
 Short-Name: static_analysis
-Long-Name: Static Analysis reporter Plugin
+Long-Name: TODO Plugin
+Url: https://github.com/jenkinsci/static_analysis-plugin
 Minimum-Java-Version: 1.8
-Plugin-Version: 1.0-SNAPSHOT (private-05/15/2021 06:06-root)
-Hudson-Version: 2.164.1
-Jenkins-Version: 2.164.1
-Plugin-Dependencies: structs:1.19
+Plugin-Version: 1.0-SNAPSHOT (private-05/18/2021 13:31-root)
+Hudson-Version: 2.277.1
+Jenkins-Version: 2.277.1
 Plugin-Developers: 
+Plugin-License-Name: MIT License
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Plugin-ScmUrl: https://github.com/jenkinsci/static_analysis-plugin
 

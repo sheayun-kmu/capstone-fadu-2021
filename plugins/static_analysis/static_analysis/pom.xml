@@ -4,121 +4,54 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>3.43</version>
+        <version>4.16</version>
         <relativePath />
     </parent>
     <groupId>io.jenkins.plugins</groupId>
     <artifactId>static_analysis</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}${changelist}</version>
     <packaging>hpi</packaging>
     <properties>
-        <!-- Baseline Jenkins version you use to build the plugin. Users must have this version or newer to run. -->
-        <jenkins.version>2.164.1</jenkins.version>
+        <revision>1.0</revision>
+        <changelist>-SNAPSHOT</changelist>
+        <jenkins.version>2.277.1</jenkins.version>
         <java.level>8</java.level>
-        <!-- Other properties you may want to use:
-          ~ jenkins-test-harness.version: Jenkins Test Harness version you use to test the plugin. For Jenkins version >= 1.580.1 use JTH 2.0 or higher.
-          ~ hpi-plugin.version: The HPI Maven Plugin version used by the plugin..
-          ~ stapler-plugin.version: The Stapler Maven plugin version required by the plugin.
-     -->
-    </properties>
-    <name>Static Analysis reporter Plugin</name>
-    <!-- The default licence for Jenkins OSS Plugins is MIT. Substitute for the applicable one if needed. -->
+        <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>    </properties>
+    <name>TODO Plugin</name>
+    <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
+    <dependencies>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.jenkins.tools.bom</groupId>
+                <artifactId>bom-2.277.x</artifactId>
+                <version>26</version>
+                <scope>import</scope>
+                <type>pom</type>
+	    </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <licenses>
         <license>
             <name>MIT License</name>
             <url>https://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
-    <dependencies>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins</groupId>
-            <artifactId>structs</artifactId>
-            <version>1.19</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-step-api</artifactId>
-            <version>2.19</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-cps</artifactId>
-            <version>2.39</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-job</artifactId>
-            <version>2.11.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-basic-steps</artifactId>
-            <version>2.6</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-durable-task-step</artifactId>
-            <version>2.13</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-api</artifactId>
-            <version>2.30</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jenkins-ci.plugins.workflow</groupId>
-            <artifactId>workflow-support</artifactId>
-            <version>3.3</version>
-            <scope>test</scope>
-        </dependency>
-	    <!-- JSON Parser Dependencies -->
-        <dependency>
-          <groupId>com.googlecode.json-simple</groupId>
-          <artifactId>json-simple</artifactId>
-          <version>1.1.1</version>
-        </dependency>
-         
-    </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jenkins-ci.plugins</groupId>
-                <artifactId>script-security</artifactId>
-                <version>1.39</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jenkins-ci.plugins</groupId>
-                <artifactId>scm-api</artifactId>
-                <version>2.2.6</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
-    <!-- If you want this to appear on the wiki page:
-    <developers>
-      <developer>
-        <id>bhacker</id>
-        <name>Bob Q. Hacker</name>
-        <email>bhacker@nowhere.net</email>
-      </developer>
-    </developers> -->
-
-    <!-- Assuming you want to host on @jenkinsci:
-    <url>https://wiki.jenkins.io/display/JENKINS/TODO+Plugin</url>
     <scm>
-        <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
-        <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
+        <connection>scm:git:git://github.com/${gitHubRepo}.git</connection>
+        <developerConnection>scm:git:git@github.com:${gitHubRepo}.git</developerConnection>
+        <url>https://github.com/${gitHubRepo}</url>
+        <tag>${scmTag}</tag>
     </scm>
-    -->
+
     <repositories>
         <repository>
             <id>repo.jenkins-ci.org</id>
