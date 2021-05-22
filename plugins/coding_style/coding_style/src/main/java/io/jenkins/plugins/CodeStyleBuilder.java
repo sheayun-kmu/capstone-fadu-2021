@@ -36,13 +36,12 @@ public class CodeStyleBuilder extends Builder implements SimpleBuildStep {
         return name;
     }
 
+    /* make object and conver text file to xml file */
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener) throws InterruptedException, IOException {
 	try{	
-            	listener.getLogger().println("Hello, " + name + "!");
         	converXmlCode convert = new converXmlCode();	
                 String path = workspace + "/" + name;
-		listener.getLogger().println(path);
 		String currentWorkspace = workspace + "/";	
 		convert.readFile(path, currentWorkspace);
 	}
@@ -54,19 +53,22 @@ public class CodeStyleBuilder extends Builder implements SimpleBuildStep {
     @Symbol("greet")
     @Extension
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
-
+	
+	/* check the report is name is given or not */
         public FormValidation doCheckName(@QueryParameter String value)
                 throws IOException, ServletException {
             if (value.length() == 0)
                 return FormValidation.error(Messages.CodeStyleBuilder_DescriptorImpl_errors_missingName()); 
             return FormValidation.ok();
         }
-
+	
+	/* check availability */
 	@Override
         public boolean isApplicable(Class<? extends AbstractProject> aClass) {
             return true;
         }
 
+	/* set plugin display name */
         @Override
         public String getDisplayName() {
             return Messages.CodeStyleBuilder_DescriptorImpl_DisplayName();

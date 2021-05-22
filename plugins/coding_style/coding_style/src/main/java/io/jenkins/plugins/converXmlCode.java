@@ -22,28 +22,33 @@ import org.w3c.dom.Element;
 import org.w3c.dom.*;
 import javax.xml.transform.dom.*;
 
+/* read text file and convert to xml file */
+
 public class converXmlCode{
 	Document xmldoc;
 	Element root;
-	BufferedReader in;
-	StreamResult out;
+	BufferedReader inFile;
+	StreamResult outFile;
+
+	/* get text file path and read file */
 	public void readFile(String filePath, String workspace) throws IOException, ParserConfigurationException, TransformerException {
-		in = new BufferedReader(new FileReader(filePath));
+		inFile = new BufferedReader(new FileReader(filePath));
 		String storedLoc = workspace + "report.xml";
-		out = new StreamResult(storedLoc);
+		outFile = new StreamResult(storedLoc);
 
 		String statement = "";
 		initXmlForm();
-		while((statement = in.readLine()) != null) {
+		while((statement = inFile.readLine()) != null) {
 			String data[] = statement.split(":");
-			String code = in.readLine();
-			String position = in.readLine();
+			String code = inFile.readLine();
+			String position = inFile.readLine();
 			xmlForm(data, code, position);
 		}
-		in.close();
+		inFile.close();
 		writeXml();
 	}
 	
+	/* make initial form of xml file and root node is "report" */
 	public void initXmlForm() throws ParserConfigurationException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	    DocumentBuilder builder = factory.newDocumentBuilder();
@@ -53,6 +58,7 @@ public class converXmlCode{
 	    root = xmldoc.getDocumentElement();
 	}
 	
+	/* add elements to xml file */
 	public void xmlForm(String data[], String code, String position) {
 		Element caseIdentifier = xmldoc.createElement("issue");
 		Element type = xmldoc.createElement("type"); 
@@ -64,6 +70,7 @@ public class converXmlCode{
                 Element columnStart = xmldoc.createElement("columnStart");
                 Element columnEnd = xmldoc.createElement("columnEnd");
 		Element fileName = xmldoc.createElement("fileName");
+		
 		Node Category = xmldoc.createTextNode("Coding style");
 		Node Type = xmldoc.createTextNode("Code stlye check");
 		Node Severity = xmldoc.createTextNode(data[3].trim());
@@ -73,9 +80,12 @@ public class converXmlCode{
 
 		int columnRangeStart = position.indexOf("^");
 		Node ColumnStart = xmldoc.createTextNode(Integer.toString(columnRangeStart));
+		
 		int columnRangeEnd = position.length()-1;
 		Node ColumnEnd = xmldoc.createTextNode(Integer.toString(columnRangeEnd));
+		
 		Node FileName = xmldoc.createTextNode(data[0]);
+		
 		category.appendChild(Category);
 		type.appendChild(Type);
 		codeSeverity.appendChild(Severity);
@@ -99,6 +109,7 @@ public class converXmlCode{
 		root.appendChild(caseIdentifier);
 	}
 	
+	/* make form of xml file (xml declaration, indentation, encoding) */
 	public void writeXml() throws TransformerException, IOException {
 	    DOMSource domSource = new DOMSource(xmldoc);
 	    TransformerFactory tf = TransformerFactory.newInstance();
@@ -110,6 +121,6 @@ public class converXmlCode{
 	    transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 	    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 
-	    transformer.transform(domSource, out);
+	    transformer.transform(domSource, outFile);
 	}
 }
