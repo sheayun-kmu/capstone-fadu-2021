@@ -50,6 +50,8 @@ public class TranslatorJson {
 		String data2[] = error.split(":");
 		
 		object.put("fileName", data1[0]);
+		object.put("category", "Static analysis");
+		object.put("type", "Static analysis check");
 		object.put("columnStart", data2[2]);
 		object.put("columnEnd", data2[2]);
 		object.put("lineStart", data2[1]);

@@ -6,7 +6,7 @@
   <artifactId>static_analysis</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>hpi</packaging>
-  <name>TODO Plugin</name>
+  <name>Static Analysis Status Reporter Plugin</name>
   <description>The Jenkins Plugins Parent POM Project</description>
   <url>https://github.com/jenkinsci/static_analysis-plugin</url>
   <inceptionYear>2016</inceptionYear>
