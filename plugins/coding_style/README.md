@@ -1,7 +1,7 @@
-###  Coding styling check Status Reporter 
+#  Coding styling check Status Reporter 
 The goal is to improve readability and increase the efficiency of collaboration and maintenance by maintaining consistency in code structures(coding style)
 
-### How to use
+## How to use
 1. Build Dockerfile in Docker directory.
 2. Execute docker image and start jenkins service (like __service jenkins start__)
 3. Login Jenkins or make your account.
@@ -16,11 +16,11 @@ The goal is to improve readability and increase the efficiency of collaboration 
 12. On report pattern, write __**/report.xml__.
 13. After then, if you build, it will show the checked result with graph.
 
-### Notes
+## Notes
 This plugin is tested and run based on Freestyle project in Jenkins. Also to use this plugin, in your server(where Jenkins exits) has to contain coding style check tool, clang-format. If your OS is ubuntu and its version is lower than 18.04, this plugin cannot be used. It is because the option --dry-run is supported from clang-format version 10. To use this plugin either your ubuntu is not over 18.04, you can use Docker(virtual OS) ect.
 
-### LICENSE
+## LICENSE
 No LICENSE. if you want to modify, you can clone and modify as you want.
 
-### Test code:
+## Test code:
 <https://github.com/MinjeongKim98/OSS_Class_Test.git/>
