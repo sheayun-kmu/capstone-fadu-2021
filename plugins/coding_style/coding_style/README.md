@@ -8,7 +8,7 @@ Check code style using clang-format, and show the result with warning-ng graph.
 
 1. Make a Freestyle project in Jenkins.
 2. Connect your github repository with Jenkins.
-3. Download hpi file in target directory and upload it on Jenkins.
+3. Download hpi file in target directory and upload it on Jenkins.(__warning ng plugin__ has to be installed)
 4. Copy or download shell file and paste or upload it on build option on Jenkins(stored named as __check.sh__ in this reporitory).
 5. After then, on Build step, select uploaded plugin, and write text file namd and format that checked on shell script(e.g text.txt).
 6. On post build step, select warning ng plugin(shown as __Record compiler warnings and static analysis results__)
