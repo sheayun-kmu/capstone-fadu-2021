@@ -1,6 +1,5 @@
 ###  Coding styling check Status Reporter 
 The goal is to improve readability and increase the efficiency of collaboration and maintenance by maintaining consistency in code structures(coding style)
----
 
 ### How to use
 1. Build Dockerfile in Docker directory.
@@ -24,5 +23,4 @@ This plugin is tested and run based on Freestyle project in Jenkins. Also to use
 No LICENSE. if you want to modify, you can clone and modify as you want.
 
 ### Test code:
----
 <https://github.com/MinjeongKim98/OSS_Class_Test.git/>
