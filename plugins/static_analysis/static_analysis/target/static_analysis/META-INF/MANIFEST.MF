@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Built-By: root
+Created-By: Apache Maven
+Build-Jdk: 1.8.0_292
+Extension-Name: static_analysis
+Specification-Title: The Jenkins Plugins Parent POM Project
+Implementation-Title: static_analysis
+Implementation-Version: 1.0-SNAPSHOT
+Group-Id: io.jenkins.plugins
+Short-Name: static_analysis
+Long-Name: Static Analysis Status Reporter Plugin
+Url: https://github.com/jenkinsci/static_analysis-plugin
+Minimum-Java-Version: 1.8
+Plugin-Version: 1.0-SNAPSHOT (private-05/21/2021 08:47-root)
+Hudson-Version: 2.277.1
+Jenkins-Version: 2.277.1
+Plugin-Developers: 
+Plugin-License-Name: MIT License
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Plugin-ScmUrl: https://github.com/jenkinsci/static_analysis-plugin
+

@@ -1,0 +1,41 @@
+[*] Compiling loop.c
+[*] Running ikos preprocessor
+[*] Running ikos analyzer
+[*] Translating LLVM bitcode to AR
+[*] Running liveness analysis
+[*] Running widening hint analysis
+[*] Running interprocedural value analysis
+[*] Analyzing entry point 'main'
+[*] Checking properties for entry point 'main'
+
+# Time stats:
+clang        : 0.339 sec
+ikos-analyzer: 0.061 sec
+ikos-pp      : 0.061 sec
+
+# Summary:
+Total number of checks                : 14
+Total number of unreachable checks    : 2
+Total number of safe checks           : 10
+Total number of definite unsafe checks: 2
+Total number of warnings              : 0
+
+The program is definitely UNSAFE
+
+# Results
+loop.c: In function 'main':
+loop.c:8:10: error: buffer overflow, accessing index 10 of global variable 'a' of 10 elements
+    a[i] = i;
+         ^
+loop.c: In function 'main':
+loop.c:9:13: error: division by zero
+    printf(i%0);
+            ^
+loop.c: In function 'main':
+loop.c:10:18: unreachable: code is dead
+    printf("%i", a[i]);
+                 ^
+loop.c: In function 'main':
+loop.c:11:1: unreachable: code is dead
+}
+^

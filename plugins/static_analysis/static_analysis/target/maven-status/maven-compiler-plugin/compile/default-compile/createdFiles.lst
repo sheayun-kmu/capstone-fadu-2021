@@ -1,0 +1,10 @@
+META-INF/annotations/hudson.Extension.txt
+io/jenkins/plugins/StaticAnalysisBuilder$DescriptorImpl.class
+io/jenkins/plugins/StaticAnalysisBuilder.class
+META-INF/annotations/org.kohsuke.accmod.Restricted
+io/jenkins/plugins/StaticAnalysisBuilder.stapler
+io/jenkins/plugins/Messages.class
+META-INF/annotations/org.jenkinsci.Symbol
+io/jenkins/plugins/StaticAnalysisBuilder/DescriptorImpl/doCheckName.stapler
+io/jenkins/plugins/TranslatorJson.class
+META-INF/annotations/hudson.Extension
