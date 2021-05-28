@@ -1,0 +1,10 @@
+io/jenkins/plugins/converXmlCode.class
+io/jenkins/plugins/CodeStyleBuilder$DescriptorImpl.class
+META-INF/annotations/hudson.Extension.txt
+io/jenkins/plugins/CodeStyleBuilder.stapler
+META-INF/annotations/org.kohsuke.accmod.Restricted
+io/jenkins/plugins/Messages.class
+META-INF/annotations/org.jenkinsci.Symbol
+io/jenkins/plugins/CodeStyleBuilder/DescriptorImpl/doCheckName.stapler
+io/jenkins/plugins/CodeStyleBuilder.class
+META-INF/annotations/hudson.Extension

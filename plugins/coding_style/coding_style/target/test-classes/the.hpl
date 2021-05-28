@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Group-Id: io.jenkins.plugins
+Short-Name: coding_style
+Long-Name: Coding Style Status Reporter Plugin
+Url: https://github.com/jenkinsci/coding_style-plugin
+Minimum-Java-Version: 1.8
+Plugin-Version: 1.0-SNAPSHOT (private-05/21/2021 00:57-root)
+Hudson-Version: 2.277.1
+Jenkins-Version: 2.277.1
+Plugin-Developers: 
+Plugin-License-Name: MIT License
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Plugin-ScmUrl: https://github.com/jenkinsci/coding_style-plugin
+Libraries: /home/work/personal/coding_style/src/main/resources,/home/w
+ ork/personal/coding_style/target/classes
+Resource-Path: /home/work/personal/coding_style/src/main/webapp
+
